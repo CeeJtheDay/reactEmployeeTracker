@@ -1,0 +1,27 @@
+{
+  "name": "reactEmployeeTracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CeeJtheDay/reactEmployeeTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CeeJtheDay/reactEmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/CeeJtheDay/reactEmployeeTracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
+  }
+}
