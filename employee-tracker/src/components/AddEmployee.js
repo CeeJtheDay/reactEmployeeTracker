@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import axios from "axios";
 
 export default class AddEmployee extends Component {
     constructor(props) {
@@ -58,6 +59,17 @@ export default class AddEmployee extends Component {
         console.log(`Employee Phone: ${this.state.emplpoyee_phone}`);
         console.log(`Employee Email: ${this.state.employee_email}`);
         console.log(`Employee Department: ${this.state.employee_department}`);
+
+        const newEmployee = {
+            employee_firstName: this.state.employee_firstName,
+            employee_lastName: this.state.employee_lastName ,
+            employee_phone: this.state.employee_phone,
+            employee_email: this.state.employee_email,
+            employee_department: this.state.employee_department
+        }
+
+        axios.post('http://localhost:4000/add', newEmployee)
+            .then(res => console.log(res.data));
         
         this.setState({
             employee_firstName: '',
