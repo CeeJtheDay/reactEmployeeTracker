@@ -22,7 +22,7 @@ export default class EmployeeTable extends Component {
     }
 
     componentDidMount() {
-        axios.get('/')
+        axios.get('https://employee-dir3ctory.herokuapp.com/')
             .then(response => {
                 this.setState({ employees: response.data });
             })
