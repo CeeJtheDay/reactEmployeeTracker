@@ -22,7 +22,7 @@ export default class EmployeeTable extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/')
+        axios.get('/')
             .then(response => {
                 this.setState({ employees: response.data });
             })
