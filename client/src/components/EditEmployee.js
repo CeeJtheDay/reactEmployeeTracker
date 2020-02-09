@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
 
-export default class AddEmployee extends Component {
+export default class EditEmployee extends Component {
+
     constructor(props) {
         super(props);
+
+
 
         this.state = {
             employee_firstName: '',
@@ -19,6 +22,22 @@ export default class AddEmployee extends Component {
         this.onChangeEmployeeEmail = this.onChangeEmployeeEmail.bind(this);
         this.onChangeEmployeeDepartment = this.onChangeEmployeeDepartment.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:4000/' + this.props.match.params.id)
+            .then(response => {
+                this.setState({
+                    employee_firstName: response.data.employee_firstName,
+                    employee_lastName: response.data.employee_lastName,
+                    employee_phone: response.data.employee_phone,
+                    employee_email: response.data.employee_email,
+                    employee_department: response.data.employee_department
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     onChangeEmployeeFirstName(e) {
@@ -53,40 +72,28 @@ export default class AddEmployee extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
-        console.log(`Form submitted:`);
-        console.log(`Employee Name: ${this.state.employee_firstName} ${this.state.employee_lastName}`);
-        console.log(`Employee Phone: ${this.state.emplpoyee_phone}`);
-        console.log(`Employee Email: ${this.state.employee_email}`);
-        console.log(`Employee Department: ${this.state.employee_department}`);
-
-        const newEmployee = {
+        const obj = {
             employee_firstName: this.state.employee_firstName,
-            employee_lastName: this.state.employee_lastName ,
+            employee_lastName: this.state.employee_lastName,
             employee_phone: this.state.employee_phone,
             employee_email: this.state.employee_email,
             employee_department: this.state.employee_department
-        }
-
-        axios.post('http://localhost:4000/add', newEmployee)
+        };
+        console.log(obj);
+        axios.post('http://localhost:4000/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
-        this.setState({
-            employee_firstName: '',
-            employee_lastName: '',
-            employee_phone: '',
-            employee_email: '',
-            employee_department: ''
-        })
+        this.props.history.push('/');
     }
 
     render() {
         return (
-            <div style={{marginTop: 10}}>
-                <h3>Add New Employee</h3>
+            <div>
+                <h3 align="center">Update Employee</h3>
                 <form onSubmit={this.onSubmit}>
+                    
                     <div className="form-group"> 
-                        <label>Fiist Name: </label>
+                        <label>First Name: </label>
                         <input  type="text"
                                 className="form-control"
                                 value={this.state.employee_firstName}
@@ -128,8 +135,11 @@ export default class AddEmployee extends Component {
                                 onChange={this.onChangeEmployeeDepartment}
                                 />
                     </div>
+                                          
+                    <br />
+
                     <div className="form-group">
-                        <input type="submit" value="Add Employee" className="btn btn-primary" />
+                        <input type="submit" value="Update Employee" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

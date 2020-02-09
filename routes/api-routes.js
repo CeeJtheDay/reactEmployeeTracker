@@ -4,7 +4,7 @@ const db = require("../models");
 module.exports = function (app) {
 
     app.get("/", (req, res) => {
-        console.log("get api/employees")
+        console.log("get all employees");
         // console.log(res);
         db.Employee.find({})
             .then(dbEmployees => {
@@ -14,6 +14,19 @@ module.exports = function (app) {
             }).catch(err => {
                 res.status(400).json(err);
             })
+
+    });
+
+    app.post("/add", (req, res) => {
+        console.log("post route!");
+        let Employee = new Employee(req.body);
+        Employee.save()
+            .then(employee => {
+                res.status(200).json({ 'Employee': 'Employee added successfully' });
+            })
+            .catch(err => {
+                res.status(400).send('adding new Employee failed');
+        });
 
     });
 
