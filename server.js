@@ -1,12 +1,15 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
+// const employeeRoutes = express.Router();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
 app.use(logger("dev"));
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -17,7 +20,7 @@ app.use(express.json());
 require("./routes/api-routes")(app);
 // require("./routes/html-routes")(app);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/employees", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://user:Password1@ds033767.mlab.com:33767/heroku_vd5fdbf6", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
