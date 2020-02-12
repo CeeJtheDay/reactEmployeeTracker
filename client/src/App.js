@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import EmployeeTable from "./components/EmployeeTable.js";
 import AddEmployee from "./components/AddEmployee.js";
 import EditEmployee from "./components/EditEmployee.js";
+import AlphabetizeEmployee from "./components/AlphabetButton.js/index.js";
 
 import employee from "./images/employee.png";
 
@@ -31,9 +32,11 @@ class App extends Component {
             </div>
           </nav>
           <br />
+        <Switch>
           <Route path="/" exact component={EmployeeTable} />
           <Route path="/edit/:id" component={EditEmployee} />
           <Route path="/add" component={AddEmployee} />
+        </Switch>
         </div>
       </Router>
     );

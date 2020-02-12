@@ -26,7 +26,7 @@ export default class EmployeeTable extends Component {
             .then(response => {
                 this.setState({ employees: response.data });
             })
-            .catch(function (error){
+            .catch((error) => {
                 console.log(error);
             })
     }
