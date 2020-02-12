@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EmployeeTable from "./components/EmployeeTable.js";
 import AddEmployee from "./components/AddEmployee.js";
 import EditEmployee from "./components/EditEmployee.js";
-import AlphabetizeEmployee from "./components/AlphabetButton.js/index.js";
+
 
 import employee from "./images/employee.png";
 
