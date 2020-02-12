@@ -25,7 +25,7 @@ export default class EditEmployee extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/' + this.props.match.params.id)
+        axios.get('/api/employees/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     employee_firstName: response.data.employee_firstName,
@@ -80,7 +80,7 @@ export default class EditEmployee extends Component {
             employee_department: this.state.employee_department
         };
         console.log(obj);
-        axios.post('http://localhost:4000/update/'+this.props.match.params.id, obj)
+        axios.put('/api/employees/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
         this.props.history.push('/');
