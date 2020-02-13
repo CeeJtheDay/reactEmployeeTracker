@@ -9,7 +9,7 @@ const Employee = props => (
         <td>{props.employee.employee_email}</td>
         <td>{props.employee.employee_department}</td>
         <td>
-            <Link to={"/edit/"+props.employee._id}>Edit</Link>
+            <Link to={"/edit/" + props.employee._id}>Edit</Link>
         </td>
     </tr>
 )
@@ -18,8 +18,9 @@ export default class EmployeeTable extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {employees: []};
+        this.state = { employees: [] };
     }
+
 
     componentDidMount() {
         axios.get('/api/employees')
@@ -31,11 +32,34 @@ export default class EmployeeTable extends Component {
             })
     }
 
+    handleOnClick = (event) => {
+        event.preventDefault();
+        axios.get('/api/employees')
+            .then(({ data }) => {
+                let empArray = data;
+                empArray.sort((a, b) => {
+                    var nameA = a.employee_lastName.toLowerCase(), nameB = b.employee_lastName.toLowerCase();
+                    if (nameA < nameB) {
+                        return -1;
+                    }
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+                    return 0;
+                    
+                });
+                this.setState({ employees: empArray });
+
+            }).catch((error) => {
+                console.log(error);
+            });
+    };
+
     employeeList() {
-        return this.state.employees.map(function(currentEmployee, i){
+        return this.state.employees.map(function (currentEmployee, i) {
             return <Employee employee={currentEmployee} key={i} />;
         })
-    }
+    };
 
     render() {
         return (
@@ -52,9 +76,10 @@ export default class EmployeeTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { this.employeeList() }
+                        {this.employeeList()}
                     </tbody>
                 </table>
+                <button onClick={this.handleOnClick}>Sort By Name</button>
             </div>
         )
     }
